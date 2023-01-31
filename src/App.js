@@ -7,13 +7,29 @@ function App()
 
 {
   const[todo,setTodo]=useState("");
+ 
   const [todos,setTodos]=useState([]);
+  
+
 
   function singletodo(event)
   {
-    setTodo(event.target.value);
-    console.log(event.target.value);
+    setTodo(event.target.value)
+    
+    
+   
   }
+  const addItem=(item)=>{
+    setTodos([...todos,todo])
+    setTodo("")
+  }
+  const removeTask=(item)=>{
+    const newArray=todos.filter((data,index)=>index!==item)
+   setTodos(newArray)
+  }
+
+ 
+  
   return (
     <div className="app">
       <div className="mainHeading">
@@ -25,18 +41,19 @@ function App()
       </div>
       <div className="input">
         <input onChange={singletodo} value={todo} type="text" placeholder="🖊️ Add item..." />
-        <  i onClick={()=>setTodos([...todos,todo])} className="fas fa-plus" ></i>
+        <  i onClick={()=>addItem(todo)} className="fas fa-plus" ></i>
       </div>
+    
       <div className="todos">
       {
-      todos.map((value)=>{      
+      todos.map((value,index)=>{      
          return( <div className="todo">
           <div className="left">
-            <input type="checkbox" name="" id="" />
+            
             <p>{value}</p>
           </div>
           <div className="right">
-            <i className="fas fa-times"></i>
+            <i  onClick={()=>removeTask(index)} className="fas fa-times"></i>
           </div>
         </div>)
       })}
